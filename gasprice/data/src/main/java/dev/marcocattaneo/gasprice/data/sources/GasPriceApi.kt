@@ -1,14 +1,13 @@
 package dev.marcocattaneo.gasprice.data.sources
 
+import dev.marcocattaneo.gasprice.data.services.GasPriceService
 import dev.marcocattaneo.gasprice.domain.models.GasPrice
 import dev.marcocattaneo.gasprice.domain.repositories.GasPriceRepository
 
-class GasPriceApi(
+class GasPriceApi constructor(
+    private val gasPriceService: GasPriceService
+) : GasPriceRepository {
 
-): GasPriceRepository {
-
-    override suspend fun getGasPrice(): GasPrice {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getGasPrice(): GasPrice = gasPriceService.getLatest()
 
 }

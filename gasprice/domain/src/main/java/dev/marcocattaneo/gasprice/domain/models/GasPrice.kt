@@ -1,14 +1,19 @@
 package dev.marcocattaneo.gasprice.domain.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GasPrice(
-    val fast: Number,
-    val fastest: Number,
-    val safeLow: Number,
-    val average: Number,
-    val block_time: Number,
+    val fast: Int,
+    val fastWait: Double,
+    val fastest: Int,
+    val fastestWait: Double,
+    val safeLow: Int,
+    val safeLowWait: Double,
+    val average: Int,
+    val avgWait: Double,
+    val block_time: Double,
     val blockNum: Long,
-    val speed: Number,
-    val safeLowWait: Number,
-    val avgWait: Number,
-    val fastestWait: Number
+    val speed: Double,
+    val createdAt: FirestoreDate
 )
