@@ -3,49 +3,53 @@ package dev.marcocattaneo.cryptogasprice.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.lifecycleScope
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import dagger.hilt.android.AndroidEntryPoint
 import dev.marcocattaneo.cryptogasprice.ui.theme.CryptoGasPriceTheme
-import dev.marcocattaneo.gasprice.data.interactors.GetLatestPriceUseCase
-import javax.inject.Inject
+import dev.marcocattaneo.cryptogasprice.ui.widgets.PriceCard
+import dev.marcocattaneo.cryptogasprice.utils.LiveDataResult
+import dev.marcocattaneo.gasprice.data.models.UIGasPrice
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var getLatestPriceUseCase: GetLatestPriceUseCase
+    val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             CryptoGasPriceTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+                GasFeeList()
             }
         }
 
-        lifecycleScope.launchWhenCreated {
-            val res = getLatestPriceUseCase.execute(null)
-        }
+        mainViewModel.fetchLatestPrice()
     }
-}
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+    @Composable
+    fun GasFeeList() {
+        val gasPricesResult: LiveDataResult<UIGasPrice> by mainViewModel.lastPriceLiveData
+            .observeAsState(initial = LiveDataResult.Loading())
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    CryptoGasPriceTheme {
-        Greeting("Android")
+        Column {
+            when (gasPricesResult) {
+                is LiveDataResult.Loading -> {
+
+                }
+                is LiveDataResult.Error -> {
+
+                }
+                is LiveDataResult.Success -> {
+                    val res = (gasPricesResult as LiveDataResult.Success<UIGasPrice>)
+                    PriceCard(price = res.data.slow)
+                    PriceCard(price = res.data.fast)
+                    PriceCard(price = res.data.fastest)
+                }
+            }
+        }
     }
 }

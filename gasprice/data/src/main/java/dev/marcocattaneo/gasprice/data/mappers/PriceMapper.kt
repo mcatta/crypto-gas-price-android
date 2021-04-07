@@ -9,13 +9,13 @@ class PriceMapper @Inject constructor() : IMapper<GasPrice, UIGasPrice> {
 
     override fun parseFromTo(from: GasPrice): UIGasPrice {
         return UIGasPrice(
-            slow = UIGasPrice.Item(from.safeLow, from.safeLowWait),
-            fast = UIGasPrice.Item(from.fast, from.fastWait),
-            fastest = UIGasPrice.Item(from.fastest, from.fastestWait)
+            slow = UIGasPrice.Item(from.safeLow.div(10), from.safeLowWait),
+            fast = UIGasPrice.Item(from.fast.div(10), from.fastWait),
+            fastest = UIGasPrice.Item(from.fastest.div(10), from.fastestWait)
         )
     }
 
     override fun parseToFrom(to: UIGasPrice): GasPrice {
-        throw IllegalArgumentException("Not implemented")
+        throw IllegalStateException("Not implemented")
     }
 }
