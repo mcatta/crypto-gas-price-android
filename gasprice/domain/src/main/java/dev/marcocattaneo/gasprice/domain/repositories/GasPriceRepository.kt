@@ -6,4 +6,6 @@ interface GasPriceRepository {
 
     suspend fun getGasPrice(): GasPrice
 
+    suspend fun getGasHistory(): List<GasPrice>
+
 }

@@ -10,4 +10,6 @@ class GasPriceApi constructor(
 
     override suspend fun getGasPrice(): GasPrice = gasPriceService.getLatest()
 
+    override suspend fun getGasHistory() = gasPriceService.getHistories()
+
 }
