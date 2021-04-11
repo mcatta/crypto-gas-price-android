@@ -46,6 +46,7 @@ fun ChartWidget(modifier: Modifier, datasets: List<ChartDataSet>) {
                         isEnabled = false
                         textColor = Color.WHITE
                     }
+                    isDoubleTapToZoomEnabled = false
                     setPinchZoom(false)
                     legend.isEnabled = false
                     description.isEnabled = false

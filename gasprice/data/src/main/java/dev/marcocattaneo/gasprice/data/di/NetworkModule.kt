@@ -10,9 +10,7 @@ import dev.marcocattaneo.gasprice.data.services.GasPriceService
 import dev.marcocattaneo.gasprice.data.sources.GasPriceApi
 import dev.marcocattaneo.gasprice.domain.repositories.GasPriceRepository
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -38,7 +36,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .client(clientBuilder.build())
             .baseUrl("https://europe-west2-crypto-gas-price.cloudfunctions.net/")
-            .addConverterFactory(Json.asConverterFactory(contentType))
+            .addConverterFactory(Json { ignoreUnknownKeys = true }.asConverterFactory(contentType))
             .build()
     }
 

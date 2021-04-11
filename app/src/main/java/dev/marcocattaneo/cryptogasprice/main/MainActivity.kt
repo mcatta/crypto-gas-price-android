@@ -8,7 +8,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -43,12 +48,22 @@ class MainActivity : ComponentActivity() {
                             item { GasFeeChart() }
                             item { GasFeeList() }
                         }
-                    }
+                    },
+                    floatingActionButton = {
+                        FloatingActionButton(
+                            onClick = {
+                                mainViewModel.fetchHistories()
+                                mainViewModel.fetchLatestPrice()
+                            }
+                        ) {
+                            Icon(Icons.Filled.Refresh, "Refresh")
+                        }
+                    },
                 )
             }
         }
 
-        mainViewModel.startFetchLatestPrice()
+        mainViewModel.fetchLatestPrice()
     }
 
     @Composable
