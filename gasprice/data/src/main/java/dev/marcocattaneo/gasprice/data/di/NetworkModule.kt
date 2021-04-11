@@ -37,7 +37,7 @@ object NetworkModule {
         }
         return Retrofit.Builder()
             .client(clientBuilder.build())
-            .baseUrl("https://us-central1-crypto-gas-price.cloudfunctions.net/")
+            .baseUrl("https://europe-west2-crypto-gas-price.cloudfunctions.net/")
             .addConverterFactory(Json.asConverterFactory(contentType))
             .build()
     }

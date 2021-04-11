@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Crypto Gas Price</string>
     <string name="title_activity_main">MainActivity</string>
+
+    <string name="price_card_currency_gwey">Gwei</string>
+
+    <string name="price_card_speed_fastest">Now</string>
+    <string name="price_card_speed_fast">Fast</string>
+    <string name="price_card_speed_slow">Slow</string>
+
+    <string name="time_format_seconds">seconds</string>
+    <string name="time_format_minutes">minutes</string>
 </resources>
