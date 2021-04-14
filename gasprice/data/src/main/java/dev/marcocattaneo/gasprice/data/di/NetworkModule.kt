@@ -40,8 +40,6 @@ object NetworkModule {
             .build()
     }
 
-
-
     @GasApi
     @Provides
     @Singleton
