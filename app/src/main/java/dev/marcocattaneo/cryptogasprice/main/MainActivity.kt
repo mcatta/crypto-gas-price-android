@@ -13,19 +13,16 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.materialIcon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.*
 import dagger.hilt.android.AndroidEntryPoint
 import dev.marcocattaneo.cryptogasprice.R
-import dev.marcocattaneo.cryptogasprice.ui.theme.CryptoGasPriceTheme
+import dev.marcocattaneo.cryptogasprice.ui.theme.*
 import dev.marcocattaneo.cryptogasprice.ui.widgets.*
 import dev.marcocattaneo.cryptogasprice.utils.LiveDataResult
 import dev.marcocattaneo.gasprice.data.models.UIGasPrice
@@ -82,16 +79,16 @@ class MainActivity : ComponentActivity() {
                 is LiveDataResult.Success -> {
                     ChartWidget(modifier = Modifier, listOf(
                         ChartDataSet(
-                            lineColor = R.color.design_default_color_secondary,
-                            res.data.map { it.slow.price.toFloat() }
+                            lineColor = R.color.gas_price_line_color_slow,
+                            res.data.map { Pair(it.slow.price.toFloat(), it.lastUpdate) }
                         ),
                         ChartDataSet(
-                            lineColor = R.color.design_default_color_secondary,
-                            res.data.map { it.fast.price.toFloat() }
+                            lineColor = R.color.gas_price_line_color_fast,
+                            res.data.map { Pair(it.fast.price.toFloat(), it.lastUpdate) }
                         ),
                         ChartDataSet(
-                            lineColor = R.color.design_default_color_secondary,
-                            res.data.map { it.fastest.price.toFloat() }
+                            lineColor = R.color.gas_price_line_color_fastest,
+                            res.data.map { Pair(it.fastest.price.toFloat(), it.lastUpdate) }
                         )
                     ))
                 }
@@ -115,15 +112,18 @@ class MainActivity : ComponentActivity() {
                 is LiveDataResult.Success -> {
                     PriceCard(
                         price = res.data.slow,
-                        stringResource(id = R.string.price_card_speed_slow)
+                        subtitle = stringResource(id = R.string.price_card_speed_slow),
+                        badgeColor = colorResource(id = R.color.gas_price_line_color_slow)
                     )
                     PriceCard(
                         price = res.data.fast,
-                        stringResource(id = R.string.price_card_speed_fast)
+                        subtitle = stringResource(id = R.string.price_card_speed_fast),
+                        badgeColor = colorResource(id = R.color.gas_price_line_color_fast)
                     )
                     PriceCard(
                         price = res.data.fastest,
-                        stringResource(id = R.string.price_card_speed_fastest)
+                        subtitle = stringResource(id = R.string.price_card_speed_fastest),
+                        badgeColor = colorResource(id = R.color.gas_price_line_color_fastest)
                     )
                 }
             }

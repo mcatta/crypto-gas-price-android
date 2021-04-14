@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="gas_price_line_color_slow">@color/purple_200</color>
+    <color name="gas_price_line_color_fast">#FF56C8D8</color>
+    <color name="gas_price_line_color_fastest">#FFb0ff57</color>
 </resources>

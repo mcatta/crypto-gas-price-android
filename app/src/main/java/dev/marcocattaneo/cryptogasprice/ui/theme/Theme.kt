@@ -15,7 +15,8 @@ private val DarkColorPalette = darkColors(
     secondary = Teal200,
     surface = DarkGray,
     background = Black,
-    error = ErrorColor
+    error = ErrorColor,
+    onError = White
 )
 
 private val LightColorPalette = lightColors(
@@ -24,7 +25,8 @@ private val LightColorPalette = lightColors(
     secondary = Teal200,
     surface = White,
     background = DirtyWhite,
-    error = ErrorColor
+    error = ErrorColor,
+    onError = White
 
     /* Other default colors to override
     background = Color.White,

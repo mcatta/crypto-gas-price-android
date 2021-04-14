@@ -6,12 +6,15 @@
         <entry key="../../../../layout/compose-model-1618131938677.xml" value="0.31296296296296294" />
         <entry key="../../../../layout/compose-model-1618132109483.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1618171484342.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1618256297912.xml" value="0.45" />
+        <entry key="../../../../layout/compose-model-1618260750202.xml" value="0.35462962962962963" />
+        <entry key="../../../../layout/compose-model-1618261443597.xml" value="0.35462962962962963" />
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
