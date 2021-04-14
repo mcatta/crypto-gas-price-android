@@ -14,5 +14,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - name: Create google-services.json
+      run: |
+        echo "${{ secrets.FIREABSE_GOOGLE_SERVICES_JSON }}" > app/google-services.json
     - name: Run tests 
       run: ./gradlew testRelease
