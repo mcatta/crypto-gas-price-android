@@ -24,7 +24,7 @@ jobs:
         java-version: 11
     - name: Create google-services.json
       run: |
-        echo "${{ secrets.FIREBASE_GOOGLE_SERVICES_JSON }}" > app/google-services.json
+        echo '${{ secrets.FIREBASE_GOOGLE_SERVICES_JSON }}' > app/google-services.json
     - name: Run tests 
       run: ./gradlew testRelease
       
@@ -43,7 +43,7 @@ jobs:
         gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" --batch release.keystore.asc > app/release.keystore
     - name: Create google-services.json
       run: |
-        echo "${{ secrets.FIREABSE_GOOGLE_SERVICES_JSON }}" > app/google-services.json
+        echo '${{ secrets.FIREBASE_GOOGLE_SERVICES_JSON }}' > app/google-services.json
     - name: Build release
       run: ./gradlew assembleRelease
     - name: Upload artifact
