@@ -6,16 +6,15 @@
 
     <application
         android:name=".GasPriceApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoGasPrice" >
         <activity
             android:name=".main.MainActivity"
             android:exported="true"
-            android:label="@string/title_activity_main"
+            android:label="@string/app_name"
             android:theme="@style/Theme.CryptoGasPrice.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -79,7 +79,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
-    implementation "com.airbnb.android:lottie-compose:1.0.0-beta03-1"
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     implementation platform('com.google.firebase:firebase-bom:27.0.0')
