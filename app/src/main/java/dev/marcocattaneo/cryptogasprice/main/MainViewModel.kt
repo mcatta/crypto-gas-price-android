@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.marcocattaneo.cryptogasprice.error
+import dev.marcocattaneo.cryptogasprice.loading
 import dev.marcocattaneo.cryptogasprice.result
 import dev.marcocattaneo.cryptogasprice.utils.LiveDataResult
 import dev.marcocattaneo.gasprice.data.interactors.GetGasHistoriesUseCase
@@ -34,11 +35,12 @@ class MainViewModel @Inject constructor(
 
     init {
         fetchHistories()
+        fetchLatestPrice()
     }
 
     fun fetchLatestPrice() {
         viewModelScope.launch {
-            //mLastPriceLiveData.loading()
+            mLastPriceLiveData.loading()
             try {
                 mLastPriceLiveData.result(getLatestPriceUseCase.execute(null))
             } catch (e: Exception) {
@@ -49,7 +51,7 @@ class MainViewModel @Inject constructor(
 
     fun fetchHistories() {
         viewModelScope.launch {
-            //mPriceHistoriesLiveData.loading()
+            mPriceHistoriesLiveData.loading()
             try {
                 mPriceHistoriesLiveData.result(gtGasHistoriesUseCase.execute(null))
             } catch (e: Exception) {

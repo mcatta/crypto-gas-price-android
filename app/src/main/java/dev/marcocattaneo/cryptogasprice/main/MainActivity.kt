@@ -8,11 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -45,22 +41,10 @@ class MainActivity : ComponentActivity() {
                             item { GasFeeChart() }
                             item { GasFeeList() }
                         }
-                    },
-                    floatingActionButton = {
-                        FloatingActionButton(
-                            onClick = {
-                                mainViewModel.fetchHistories()
-                                mainViewModel.fetchLatestPrice()
-                            }
-                        ) {
-                            Icon(Icons.Filled.Refresh, "Refresh")
-                        }
-                    },
+                    }
                 )
             }
         }
-
-        mainViewModel.fetchLatestPrice()
     }
 
     @Composable
@@ -70,27 +54,26 @@ class MainActivity : ComponentActivity() {
 
         Column(modifier = Modifier.fillMaxWidth()) {
             when (val res = gasHistoriesResult) {
-                is LiveDataResult.Loading -> {
-
-                }
-                is LiveDataResult.Error -> {
-                    ErrorState(res.error.message)
-                }
+                is LiveDataResult.Loading,
                 is LiveDataResult.Success -> {
+                    val data = if (res is LiveDataResult.Success) res.data else listOf()
                     ChartWidget(modifier = Modifier, listOf(
                         ChartDataSet(
                             lineColor = R.color.gas_price_line_color_slow,
-                            res.data.map { Pair(it.slow.price.toFloat(), it.lastUpdate) }
+                            data.map { Pair(it.slow.price.toFloat(), it.lastUpdate) }
                         ),
                         ChartDataSet(
                             lineColor = R.color.gas_price_line_color_fast,
-                            res.data.map { Pair(it.fast.price.toFloat(), it.lastUpdate) }
+                            data.map { Pair(it.fast.price.toFloat(), it.lastUpdate) }
                         ),
                         ChartDataSet(
                             lineColor = R.color.gas_price_line_color_fastest,
-                            res.data.map { Pair(it.fastest.price.toFloat(), it.lastUpdate) }
+                            data.map { Pair(it.fastest.price.toFloat(), it.lastUpdate) }
                         )
                     ))
+                }
+                is LiveDataResult.Error -> {
+                    ErrorState(res.error.message)
                 }
             }
         }
@@ -103,28 +86,35 @@ class MainActivity : ComponentActivity() {
 
         Column(modifier = Modifier.padding(top = 8.dp)) {
             when (val res = gasPricesResult) {
-                is LiveDataResult.Loading -> {
-
-                }
-                is LiveDataResult.Error -> {
-                    ErrorState(res.error.message)
-                }
+                is LiveDataResult.Loading,
                 is LiveDataResult.Success -> {
+                    val slowPrice =
+                        if (res is LiveDataResult.Success) res.data.slow else UIGasPrice.Item(0, 0)
+                    val fastPrice =
+                        if (res is LiveDataResult.Success) res.data.fast else UIGasPrice.Item(0, 0)
+                    val fastestPrice =
+                        if (res is LiveDataResult.Success) res.data.fastest else UIGasPrice.Item(
+                            0,
+                            0
+                        )
                     PriceCard(
-                        price = res.data.slow,
-                        subtitle = stringResource(id = R.string.price_card_speed_slow),
-                        badgeColor = colorResource(id = R.color.gas_price_line_color_slow)
+                        price = slowPrice,
+                        subtitle = stringResource(id = R.string.price_card_speed_fastest),
+                        badgeColor = colorResource(id = R.color.gas_price_line_color_fastest)
                     )
                     PriceCard(
-                        price = res.data.fast,
+                        price = fastPrice,
                         subtitle = stringResource(id = R.string.price_card_speed_fast),
                         badgeColor = colorResource(id = R.color.gas_price_line_color_fast)
                     )
                     PriceCard(
-                        price = res.data.fastest,
-                        subtitle = stringResource(id = R.string.price_card_speed_fastest),
-                        badgeColor = colorResource(id = R.color.gas_price_line_color_fastest)
+                        price = fastestPrice,
+                        subtitle = stringResource(id = R.string.price_card_speed_slow),
+                        badgeColor = colorResource(id = R.color.gas_price_line_color_slow)
                     )
+                }
+                is LiveDataResult.Error -> {
+                    ErrorState(res.error.message)
                 }
             }
         }
