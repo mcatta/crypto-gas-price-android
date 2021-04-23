@@ -1,7 +1,7 @@
 package dev.marcocattaneo.gasprice.data.mappers
 
+import dev.marcocattaneo.gasprice.common.mapper.IMapper
 import dev.marcocattaneo.gasprice.data.models.UIGasPrice
-import dev.marcocattaneo.gasprice.domain.mapper.IMapper
 import dev.marcocattaneo.gasprice.domain.models.GasPrice
 import java.util.*
 import javax.inject.Inject
