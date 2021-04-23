@@ -1,4 +1,4 @@
-package dev.marcocattaneo.gasprice.domain.interactor
+package dev.marcocattaneo.gasprice.common.interactor
 
 abstract class AbsUseCase<Input, Output> {
 
