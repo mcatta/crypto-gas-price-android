@@ -1,11 +1,10 @@
 package dev.marcocattaneo.gasprice.data.sources
 
+import dev.marcocattaneo.gasprice.common.repository.AuthenticationRepository
 import dev.marcocattaneo.gasprice.data.CoroutineTestRule
 import dev.marcocattaneo.gasprice.data.services.GasPriceService
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -22,19 +21,25 @@ class GasPriceApiTest {
     @MockK
     lateinit var gasPriceService: GasPriceService
 
+    @MockK
+    lateinit var authenticationRepository: AuthenticationRepository
+
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
+
+    val fakeToken = "fake-token-uuid-v4"
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        garPriceApi = GasPriceApi(gasPriceService)
+        garPriceApi = GasPriceApi(gasPriceService, authenticationRepository)
+        coEvery { authenticationRepository.getAuthToken() } returns fakeToken
     }
 
     @Test
     fun `Test getGasPrice() with failure`() = coroutineTestRule.testDispatcher.runBlockingTest {
         // Given
-        coEvery { gasPriceService.getLatest() } throws SocketException("Api error")
+        coEvery { gasPriceService.getLatest(any()) } throws SocketException("Api error")
 
         // When
         val errorOccurred = try {
@@ -46,24 +51,28 @@ class GasPriceApiTest {
 
         // Then
         assertNotNull(errorOccurred)
+        coVerify { gasPriceService.getLatest(eq("Bearer $fakeToken")) }
+        coVerify { authenticationRepository.getAuthToken() }
     }
 
     @Test
     fun `Test getGasPrice() with result`() = coroutineTestRule.testDispatcher.runBlockingTest {
         // Given
-        coEvery { gasPriceService.getLatest() } returns mockk()
+        coEvery { gasPriceService.getLatest(any()) } returns mockk()
 
         // When
         val result = garPriceApi.getGasPrice()
 
         // Then
         assertNotNull(result)
+        coVerify { gasPriceService.getLatest(eq("Bearer $fakeToken")) }
+        coVerify { authenticationRepository.getAuthToken() }
     }
 
     @Test
     fun `Test getGasHistory() with failure`() = coroutineTestRule.testDispatcher.runBlockingTest {
         // Given
-        coEvery { gasPriceService.getHistories() } throws SocketException("Api error")
+        coEvery { gasPriceService.getHistories(any()) } throws SocketException("Api error")
 
         // When
         val errorOccurred = try {
@@ -75,18 +84,22 @@ class GasPriceApiTest {
 
         // Then
         assertNotNull(errorOccurred)
+        coVerify { gasPriceService.getHistories(eq("Bearer $fakeToken")) }
+        coVerify { authenticationRepository.getAuthToken() }
     }
 
     @Test
     fun `Test getGasHistory() with result`() = coroutineTestRule.testDispatcher.runBlockingTest {
         // Given
-        coEvery { gasPriceService.getHistories() } returns listOf()
+        coEvery { gasPriceService.getHistories(any()) } returns listOf()
 
         // When
         val result = garPriceApi.getGasHistory()
 
         // Then
         assertNotNull(result)
+        coVerify { gasPriceService.getHistories(eq("Bearer $fakeToken")) }
+        coVerify { authenticationRepository.getAuthToken() }
     }
 
 }
