@@ -1,5 +1,8 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package dev.marcocattaneo.cryptogasprice.ui.widgets
 
+import android.content.Context
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.compose.foundation.background
@@ -36,68 +39,68 @@ fun ChartWidget(modifier: Modifier, datasets: List<ChartDataSet>) {
         AndroidView(
             modifier = Modifier.fillMaxWidth(),
             factory = { context ->
-                val simpleDateFormatter = SimpleDateFormat("H:mm", Locale.getDefault())
-                LineChart(context).apply {
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        context.resources.getDimensionPixelSize(
-                            R.dimen.chart_height
-                        )
-                    )
-
-                    // Chart setup
-                    animateXY(200, 200)
-                    axisLeft.apply {
-                        isEnabled = true
-                        textColor = Color.WHITE
-                    }
-                    axisRight.isEnabled = false
-                    xAxis.apply {
-                        isEnabled = true
-                        position = XAxis.XAxisPosition.BOTTOM
-                        textColor = Color.WHITE
-
-                        valueFormatter = object: ValueFormatter() {
-                            override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                                return simpleDateFormatter.format(datasets[0].dataSet[value.toInt()].second)
-                            }
-                        }
-                    }
-                    isDoubleTapToZoomEnabled = false
-                    setPinchZoom(false)
-                    setScaleEnabled(false)
-                    legend.isEnabled = false
-                    description.isEnabled = false
-                    isHighlightPerDragEnabled = false
-                    isHighlightPerTapEnabled = false
-
-
-                    data = LineData().apply {
-                        datasets.forEach { set ->
-                            addDataSet(
-                                CustomLineDataSet(
-                                    ContextCompat.getColor(
-                                        context,
-                                        set.lineColor
-                                    ), set.dataSet
-                                )
+                LineChart(context).also { it.initChart() }
+            }
+        ) { lineChart ->
+            if (datasets.all { it.dataSet.isNotEmpty() }) {
+                lineChart.data = LineData().apply {
+                    datasets.forEach { set ->
+                        addDataSet(
+                            CustomLineDataSet(
+                                ContextCompat.getColor(
+                                    lineChart.context,
+                                    set.lineColor
+                                ), set.dataSet
                             )
-                        }
+                        )
                     }
                 }
+
+                lineChart.notifyDataSetChanged()
+                lineChart.refreshDrawableState()
+                lineChart.invalidate()
             }
-        )
+        }
     }
 }
 
-@Composable
-@Preview
-fun ChartWidgetPreview() {
-    ChartWidget(
-        Modifier, listOf(
-            ChartDataSet(Color.RED, listOf())
+private fun LineChart.initChart() {
+    val simpleDateFormatter = SimpleDateFormat("H:mm", Locale.getDefault())
+    layoutParams = ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        context.resources.getDimensionPixelSize(
+            R.dimen.chart_height
         )
     )
+
+    // Chart setup
+    animateXY(200, 200)
+    axisLeft.apply {
+        isEnabled = true
+        textColor = Color.WHITE
+    }
+    axisRight.isEnabled = false
+    xAxis.apply {
+        isEnabled = true
+        position = XAxis.XAxisPosition.BOTTOM
+        textColor = Color.WHITE
+
+        valueFormatter = object : ValueFormatter() {
+            override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                val dataset: LineDataSet? = this@initChart.data.getDataSetByIndex(0) as? LineDataSet
+                val entry: Entry? = dataset?.getEntryForIndex(value.toInt())
+                val pair: Pair<Float, Date>? = entry?.data as? Pair<Float, Date>
+                return pair?.second?.let { simpleDateFormatter.format(it) } ?: ""
+            }
+        }
+    }
+    isDoubleTapToZoomEnabled = false
+    setPinchZoom(false)
+    setScaleEnabled(false)
+    legend.isEnabled = false
+    description.isEnabled = false
+    isHighlightPerDragEnabled = false
+    isHighlightPerTapEnabled = false
 }
 
 class CustomLineDataSet(lineColor: Int, data: List<Pair<Float, Date>>) :

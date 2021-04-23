@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.marcocattaneo.cryptogasprice.gasprice.data.BuildConfig
+import dev.marcocattaneo.gasprice.common.repository.AuthenticationRepository
 import dev.marcocattaneo.gasprice.data.services.GasPriceService
 import dev.marcocattaneo.gasprice.data.sources.GasPriceApi
 import dev.marcocattaneo.gasprice.domain.repositories.GasPriceRepository
@@ -43,6 +44,6 @@ object NetworkModule {
     @GasApi
     @Provides
     @Singleton
-    fun provideGasRepository(retrofit: Retrofit): GasPriceRepository = GasPriceApi(retrofit.create(GasPriceService::class.java))
+    fun provideGasRepository(retrofit: Retrofit, authenticationRepository: AuthenticationRepository): GasPriceRepository = GasPriceApi(retrofit.create(GasPriceService::class.java), authenticationRepository)
 
 }

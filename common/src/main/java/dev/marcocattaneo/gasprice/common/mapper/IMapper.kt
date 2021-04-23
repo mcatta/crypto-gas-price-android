@@ -1,4 +1,4 @@
-package dev.marcocattaneo.gasprice.domain.mapper
+package dev.marcocattaneo.gasprice.common.mapper
 
 interface IMapper<FROM, TO> {
 

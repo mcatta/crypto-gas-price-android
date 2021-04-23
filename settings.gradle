@@ -3,11 +3,13 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter()
         maven { url 'https://www.jitpack.io' }
     }
 }
 rootProject.name = "Crypto Gas Price"
 include ':app'
-include ':gasprice:domain'
 include ':gasprice:data'
+include ':gasprice:domain'
+include ':notification:data'
+include ':notification:domain'
+include ':common'
