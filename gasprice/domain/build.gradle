@@ -10,6 +10,6 @@ java {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.1.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
+    implementation Libs.kotlinxDatetime
+    implementation Libs.kotlinxSerializationJson
 }

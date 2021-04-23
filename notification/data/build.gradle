@@ -8,8 +8,8 @@ android {
     compileSdk 30
 
     defaultConfig {
-        minSdk 23
-        targetSdk 30
+        minSdk DefaultConfig.minSdkVersion
+        targetSdk DefaultConfig.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -36,14 +36,8 @@ dependencies {
     implementation project(path: ':notification:domain')
     implementation project(path: ':common')
 
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
+    Libs.INSTANCE.unitTestDependencies.forEach { testImplementation it }
 
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    implementation "com.google.dagger:hilt-core:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation Libs.hiltCore
+    kapt Libs.hiltCompiler
 }
