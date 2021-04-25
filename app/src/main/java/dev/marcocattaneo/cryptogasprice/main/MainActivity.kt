@@ -7,7 +7,10 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,6 +18,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dagger.hilt.android.AndroidEntryPoint
 import dev.marcocattaneo.cryptogasprice.R
@@ -41,6 +45,9 @@ class MainActivity : ComponentActivity() {
                             item { GasFeeChart() }
                             item { GasFeeList() }
                         }
+                    },
+                    floatingActionButton = {
+                        LoadingProgress()
                     }
                 )
             }
@@ -77,6 +84,19 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    @Composable
+    @Preview
+    fun LoadingProgress() {
+        val progressState = mainViewModel.timerLiveData.observeAsState(initial = 0f)
+        CircularProgressIndicator(
+            progress = progressState.value,
+            modifier = Modifier
+                .size(32.dp),
+            color = MaterialTheme.colors.primary,
+            strokeWidth = 2.dp
+        )
     }
 
     @Composable
