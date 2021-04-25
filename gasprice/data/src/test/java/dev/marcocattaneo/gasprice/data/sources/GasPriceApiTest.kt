@@ -5,7 +5,7 @@ import dev.marcocattaneo.gasprice.data.CoroutineTestRule
 import dev.marcocattaneo.gasprice.data.services.GasPriceService
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import junit.framework.Assert.assertNotNull
+import junit.framework.TestCase.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -16,7 +16,7 @@ import java.net.SocketException
 @ExperimentalCoroutinesApi
 class GasPriceApiTest {
 
-    lateinit var garPriceApi: GasPriceApi
+    private lateinit var garPriceApi: GasPriceApi
 
     @MockK
     lateinit var gasPriceService: GasPriceService
@@ -27,7 +27,7 @@ class GasPriceApiTest {
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
 
-    val fakeToken = "fake-token-uuid-v4"
+    private val fakeToken = "fake-token-uuid-v4"
 
     @Before
     fun setUp() {
