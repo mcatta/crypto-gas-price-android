@@ -8,10 +8,10 @@ import dev.marcocattaneo.gasprice.domain.repositories.GasPriceRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -19,11 +19,11 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import java.net.SocketException
 
-@ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
-class GetLatestPriceUseCaseTest {
+@ExperimentalCoroutinesApi
+class GetGasHistoriesUseCaseTest {
 
-    lateinit var getLatestPriceUseCase: GetLatestPriceUseCase
+    lateinit var getGasHistoriesUseCase: GetGasHistoriesUseCase
 
     @MockK
     lateinit var gasPriceRepository: GasPriceRepository
@@ -34,17 +34,17 @@ class GetLatestPriceUseCaseTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        getLatestPriceUseCase = GetLatestPriceUseCase(gasPriceRepository, PriceMapper())
+        getGasHistoriesUseCase = GetGasHistoriesUseCase(gasPriceRepository, PriceMapper())
     }
 
     @Test
     fun `Test get gas price with failure`() = coroutineTestRule.testDispatcher.runBlockingTest {
         // Given
-        coEvery { gasPriceRepository.getGasPrice() } throws SocketException("Api error")
+        coEvery { gasPriceRepository.getGasHistory() } throws SocketException("Api error")
 
         // When
         val errorOccurred = try {
-            getLatestPriceUseCase.execute(null)
+            getGasHistoriesUseCase.execute(null)
             null
         } catch (e: Exception) {
             e
@@ -57,23 +57,28 @@ class GetLatestPriceUseCaseTest {
     @Test
     fun `Test get gas price`() = coroutineTestRule.testDispatcher.runBlockingTest {
         // Given
-        coEvery { gasPriceRepository.getGasPrice() } returns GasPrice(
-            400000000000L,
-            300000000000L,
-            100000000000L,
-            50000000000L,
-            FirestoreDate(0L, 0L)
+        coEvery { gasPriceRepository.getGasHistory() } returns listOf(
+            GasPrice(
+                400000000000L,
+                300000000000L,
+                100000000000L,
+                50000000000L,
+                FirestoreDate(0L, 0L)
+            )
         )
 
         // When
-        val result = getLatestPriceUseCase.execute(null)
+        val result = getGasHistoriesUseCase.execute(null)
 
         // Then
         assertNotNull(result)
-        assertEquals(50, result.slow.price)
-        assertEquals(300, result.fast.price)
-        assertEquals(400, result.fastest.price)
-        assertEquals(0, result.lastUpdate.time)
+        result.first().let {
+            assertEquals(50, it.slow.price)
+            assertEquals(300, it.fast.price)
+            assertEquals(400, it.fastest.price)
+            assertEquals(0, it.lastUpdate.time)
+        }
+
     }
 
 }

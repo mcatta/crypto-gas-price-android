@@ -11,8 +11,11 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 import java.net.SocketException
 
+@RunWith(JUnit4::class)
 @ExperimentalCoroutinesApi
 class GasPriceApiTest {
 
