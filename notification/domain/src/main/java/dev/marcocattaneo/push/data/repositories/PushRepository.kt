@@ -1,4 +1,4 @@
-package dev.marcocattaneo.push.domain.repositories
+package dev.marcocattaneo.push.data.repositories
 
 interface PushRepository {
 

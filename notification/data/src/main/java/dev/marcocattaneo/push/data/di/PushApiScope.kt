@@ -1,7 +1,7 @@
-package dev.marcocattaneo.gasprice.data.di
+package dev.marcocattaneo.push.data.di
 
 import javax.inject.Qualifier
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class GasApi
+annotation class PushApiScope

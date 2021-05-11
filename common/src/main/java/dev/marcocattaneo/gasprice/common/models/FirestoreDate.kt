@@ -1,4 +1,4 @@
-package dev.marcocattaneo.gasprice.domain.models
+package dev.marcocattaneo.gasprice.common.models
 
 import kotlinx.datetime.Instant
 import kotlinx.datetime.Instant.Companion.fromEpochSeconds

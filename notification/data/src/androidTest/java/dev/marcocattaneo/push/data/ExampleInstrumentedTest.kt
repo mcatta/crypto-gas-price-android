@@ -1,4 +1,4 @@
-package dev.marcocattaneo.push.domain
+package dev.marcocattaneo.push.data
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

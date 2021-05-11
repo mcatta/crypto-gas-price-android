@@ -35,7 +35,13 @@ object Libs {
         "androidx.compose.ui:ui-tooling:${Versions.compose}",
         "androidx.compose.runtime:runtime-livedata:${Versions.compose}",
         "androidx.compose.runtime:runtime:${{ Versions.compose }}",
+        "androidx.navigation:navigation-compose:1.0.0-alpha10",
+        "androidx.activity:activity-compose:1.3.0-alpha07",
         "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha04"
     )
+
+    const val retrofitCore = "com.squareup.retrofit2:retrofit:2.9.0"
+    const val retrofitSerialization = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    const val retrofitLogging = "com.squareup.okhttp3:logging-interceptor:4.8.1"
 
 }

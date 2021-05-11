@@ -1,4 +1,4 @@
-package dev.marcocattaneo.push.domain
+package dev.marcocattaneo.push.data
 
 import org.junit.Test
 

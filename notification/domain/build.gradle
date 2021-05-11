@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'kotlin'
+    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 java {
@@ -9,5 +10,8 @@ java {
 }
 
 dependencies {
+    api project(path: ':common')
 
+    implementation Libs.kotlinxDatetime
+    implementation Libs.kotlinxSerializationJson
 }

@@ -1,5 +1,6 @@
 package dev.marcocattaneo.gasprice.domain.models
 
+import dev.marcocattaneo.gasprice.common.models.FirestoreDate
 import kotlinx.serialization.Serializable
 
 @Serializable

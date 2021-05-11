@@ -34,9 +34,14 @@ android {
 
 dependencies {
     implementation project(path: ':notification:domain')
-    implementation project(path: ':common')
 
     Libs.INSTANCE.unitTestDependencies.forEach { testImplementation it }
+
+    api Libs.retrofitCore
+    implementation Libs.retrofitSerialization
+    implementation Libs.retrofitLogging
+
+    implementation Libs.kotlinxSerializationJson
 
     implementation Libs.hiltCore
     kapt Libs.hiltCompiler
