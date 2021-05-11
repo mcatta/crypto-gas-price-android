@@ -1,17 +1,17 @@
 package dev.marcocattaneo.gasprice.data.interactors
 
+import dev.marcocattaneo.gasprice.common.models.FirestoreDate
 import dev.marcocattaneo.gasprice.data.CoroutineTestRule
 import dev.marcocattaneo.gasprice.data.mappers.PriceMapper
-import dev.marcocattaneo.gasprice.domain.models.FirestoreDate
 import dev.marcocattaneo.gasprice.domain.models.GasPrice
 import dev.marcocattaneo.gasprice.domain.repositories.GasPriceRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

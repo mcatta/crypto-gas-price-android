@@ -1,6 +1,6 @@
 package dev.marcocattaneo.gasprice.data.mappers
 
-import dev.marcocattaneo.gasprice.domain.models.FirestoreDate
+import dev.marcocattaneo.gasprice.common.models.FirestoreDate
 import dev.marcocattaneo.gasprice.domain.models.GasPrice
 import junit.framework.Assert.assertEquals
 import org.junit.Test

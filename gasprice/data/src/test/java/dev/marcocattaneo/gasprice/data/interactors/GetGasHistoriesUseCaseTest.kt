@@ -1,8 +1,8 @@
 package dev.marcocattaneo.gasprice.data.interactors
 
+import dev.marcocattaneo.gasprice.common.models.FirestoreDate
 import dev.marcocattaneo.gasprice.data.CoroutineTestRule
 import dev.marcocattaneo.gasprice.data.mappers.PriceMapper
-import dev.marcocattaneo.gasprice.domain.models.FirestoreDate
 import dev.marcocattaneo.gasprice.domain.models.GasPrice
 import dev.marcocattaneo.gasprice.domain.repositories.GasPriceRepository
 import io.mockk.MockKAnnotations
