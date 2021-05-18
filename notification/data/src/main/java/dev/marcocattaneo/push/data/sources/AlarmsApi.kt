@@ -2,6 +2,7 @@ package dev.marcocattaneo.push.data.sources
 
 import dev.marcocattaneo.gasprice.common.repository.AuthenticationRepository
 import dev.marcocattaneo.push.data.models.Alarm
+import dev.marcocattaneo.push.data.models.AlarmRequest
 import dev.marcocattaneo.push.data.repositories.AlarmsRepository
 import dev.marcocattaneo.push.data.services.AlarmsService
 import javax.inject.Inject
@@ -18,11 +19,12 @@ class AlarmsApi @Inject constructor(
 
     override suspend fun create(limit: Double): Alarm {
         return alarmsService.create(
-            getAuthorizationToken(), mapOf(
-                "limit" to limit
-            )
+            getAuthorizationToken(),
+            AlarmRequest(limit)
         )
     }
 
-    override suspend fun delete(id: String) = alarmsService.delete(getAuthorizationToken(), id)
+    override suspend fun delete(id: String) {
+        alarmsService.delete(getAuthorizationToken(), id)
+    }
 }

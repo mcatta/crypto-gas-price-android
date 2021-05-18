@@ -1,4 +1,4 @@
-package dev.marcocattaneo.cryptogasprice.main
+package dev.marcocattaneo.cryptogasprice.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons

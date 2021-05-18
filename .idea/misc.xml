@@ -12,12 +12,32 @@
         <entry key="../../../../layout/compose-model-1618430897109.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1619257440031.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1619381554888.xml" value="0.262037037037037" />
+        <entry key="../../../../layout/compose-model-1620759055513.xml" value="0.2657407407407407" />
+        <entry key="../../../../layout/compose-model-1620759276403.xml" value="0.2657407407407407" />
+        <entry key="../../../../layout/compose-model-1620766383617.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1620766417334.xml" value="0.26296296296296295" />
+        <entry key="../../../../layout/compose-model-1620802021527.xml" value="0.2601851851851852" />
+        <entry key="../../../../layout/compose-model-1620885571240.xml" value="0.25833333333333336" />
+        <entry key="../../../../layout/compose-model-1620886141407.xml" value="0.25833333333333336" />
+        <entry key="../../../../layout/compose-model-1620930623923.xml" value="0.25555555555555554" />
+        <entry key="../../../../layout/compose-model-1620994422903.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1620994430805.xml" value="0.25277777777777777" />
+        <entry key="../../../../layout/compose-model-1620994512557.xml" value="0.25277777777777777" />
+        <entry key="../../../../layout/compose-model-1621232185774.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1621232527661.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1621232606111.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1621233402698.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1621367773745.xml" value="0.2462962962962963" />
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.16945288753799392" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19322916666666667" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/dev/marcocattaneo/cryptogasprice/splash/SplashActivity.kt" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

@@ -12,4 +12,8 @@
     <string name="time_format_minutes">minutes</string>
     <string name="dashboard_screen_route">Dashboard</string>
     <string name="alarms_screen_route">Alarms</string>
+    <string name="alarms_screen_add_label">Add alarm</string>
+    <string name="alarm_item_enabled">Enabled</string>
+    <string name="alarm_item_disabled">Disabled</string>
+    <string name="alarm_item_delete_label">Delete</string>
 </resources>

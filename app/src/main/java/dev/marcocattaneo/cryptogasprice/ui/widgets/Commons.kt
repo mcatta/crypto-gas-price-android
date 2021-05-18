@@ -1,17 +1,19 @@
 package dev.marcocattaneo.cryptogasprice.ui.widgets
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.KEY_ROUTE
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigate
-import dev.marcocattaneo.cryptogasprice.main.ScreenRoutes
+import dev.marcocattaneo.cryptogasprice.ui.ScreenRoutes
 
 @Composable
 fun BottomBar(
@@ -37,4 +39,34 @@ fun BottomBar(
             )
         }
     }
+}
+
+
+@Composable
+fun PrimaryButton(label: String, onClick: () -> Unit) {
+    Button(onClick = onClick) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.body2
+        )
+    }
+}
+
+@Composable
+fun PrimaryButton(icon: ImageVector, desc: String, onClick: () -> Unit) {
+    Button(onClick = onClick) {
+        Icon(imageVector = icon, contentDescription = desc)
+    }
+}
+
+
+@Composable
+@Preview
+fun Loading() {
+    Text(
+        text = "Loading...",
+        modifier = Modifier.fillMaxWidth(),
+        style = MaterialTheme.typography.body1,
+        textAlign = TextAlign.Center
+    )
 }

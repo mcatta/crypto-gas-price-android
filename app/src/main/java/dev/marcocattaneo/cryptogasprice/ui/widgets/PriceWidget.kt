@@ -66,7 +66,6 @@ fun PriceCard(price: UIGasPrice.Item, subtitle: String, badgeColor: Color) {
                 )
             }
         }
-
     }
 }
 

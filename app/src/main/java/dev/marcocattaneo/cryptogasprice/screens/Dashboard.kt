@@ -1,9 +1,6 @@
 package dev.marcocattaneo.cryptogasprice.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -12,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -35,25 +33,29 @@ fun DashboardScreen(mainViewModel: MainViewModel) {
 
     val progressState = mainViewModel.timerLiveData.observeAsState(initial = 0f)
 
-    Scaffold(
-        content = {
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                item { GasFeeChart(gasHistoriesResult) }
-                item { GasFeeList(gasPricesResult) }
+    Row {
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            item { GasFeeChart(gasHistoriesResult) }
+            item { GasFeeList(gasPricesResult) }
+            item {
+                Column(
+                    horizontalAlignment = Alignment.End,
+                    modifier = Modifier.padding(end = 16.dp)
+                ) {
+                    LoadingProgress(progressState)
+                }
             }
-        },
-        floatingActionButton = {
-            LoadingProgress(progressState)
         }
-    )
+    }
 }
 
 @Composable
 fun GasFeeChart(gasHistoriesResult: LiveDataResult<List<UIGasPrice>>) {
     Column(modifier = Modifier.fillMaxWidth()) {
         when (val res = gasHistoriesResult) {
+            //TODO improve skeleton loading
             is LiveDataResult.Loading,
             is LiveDataResult.Success -> {
                 val data = if (res is LiveDataResult.Success) res.data else listOf()
